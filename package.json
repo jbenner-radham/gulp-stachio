@@ -27,6 +27,7 @@
     "handlebars": "^1.3.0"
   },
   "devDependencies": {
+    "gulp-rte": "^0.1.4",
     "mocha": "*"
   }
 }

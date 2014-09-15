@@ -5,15 +5,6 @@ var through    = require('through2');
 var handlebars = require('handlebars');
 
 module.exports = function (context) {
-	//if (!options.foo) {
-	//	throw new gutil.PluginError('gulp-stachio', '`foo` required');
-	//}
-	console.dir(context);
-
-	//if (!options) {
-	//	options = {};
-	//}
-
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
 			this.push(file);
@@ -27,16 +18,13 @@ module.exports = function (context) {
 		}
 
 		try {
-			//console.log(file.contents.toString());
-			//var template = handlebars.compile('<h1>' + file.contents.toString() + ' {{yo}}</h1>');
-			var renderer = handlebars.compile(file.contents.toString());
-			//console.log(template);
-			//var context = context || {yo: 'DAWG!!!'};
-			//console.log(template(context));
-			var template = renderer(context);
-			file.contents = new Buffer(template); //, options));
+			// var renderer = handlebars.compile(file.contents.toString());
+			// var template = renderer(context);
 
-			console.log(template);
+			// var template = handlebars.compile(file.contents.toString()).call(this, context);
+			var template = handlebars.compile(file.contents.toString())(context);
+
+			file.contents = new Buffer(template); //, options));
 			this.push(file);
 		} catch (err) {
 			this.emit('error', new gutil.PluginError('gulp-stachio', err));
