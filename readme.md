@@ -1,5 +1,5 @@
 # Gulp-Stachio
-## Render mustachio'd templates (Handlebars.js, support for Mustache, Hogan coming soon) into HTML.
+### Render mustachio'd templates (Handlebars.js, support for Mustache, Hogan coming soon) into HTML.
 
 
 ## Usage
