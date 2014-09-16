@@ -22,12 +22,12 @@
     "gulpplugin"
   ],
   "dependencies": {
+    "gulp-rte": "^0.1.4",
     "gulp-util": "^3.0.0",
-    "through2": "^0.6.1",
-    "handlebars": "^1.3.0"
+    "handlebars": "^2.0.0",
+    "through2": "^0.6.1"
   },
   "devDependencies": {
-    "gulp-rte": "^0.1.4",
     "mocha": "*"
   }
 }
