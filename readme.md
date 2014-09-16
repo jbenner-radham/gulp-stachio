@@ -3,7 +3,7 @@
 
 
 ## Usage
-For a more advanced example following harp.js conventions check `example.js`
+For a more advanced example following [harp.js](http://harpjs.com) `_data.json` & `_layout.json` [conventions](http://harpjs.com/docs/development/rules) check `example.js`
 
 ```js
 var gulp    = require('gulp');
