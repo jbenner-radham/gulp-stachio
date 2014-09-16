@@ -10,9 +10,9 @@ gulp.task('templates', function () {
             var context = {
                 basename: path.basename(file.path, path.extname(file.path))
             };
+
             context.path = file.base + context.basename + '.json';
-            // var basename = path.basename(file.path, path.extname(file.path));
-            // var contextPath = file.base + basename + '.json';
+
             try {
                 context.data = fs.readJsonSync(context.path);
             } catch (_e) {
@@ -20,7 +20,7 @@ gulp.task('templates', function () {
             }
 
             var html;
-            // if ('data' in context) {
+
             try {
                 var layout = fs.readFileSync(file.base + '_layout.hbs');
 
@@ -34,7 +34,6 @@ gulp.task('templates', function () {
 
             file._contents = new Buffer(html);
             file.path      = $.util.replaceExtension(file.path, '.html');
-            // }
         }))
         .pipe(gulp.dest('dist/'));
 });
