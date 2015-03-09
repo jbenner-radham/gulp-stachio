@@ -9,7 +9,6 @@ var stachio = require('./');
 it('should ', function (cb) {
 	var template = '<h1>Unicorns are... {{something}}!</h1>';
 	var context = { something: 'awesome' };
-
 	var stream = stachio(context);
 
 	stream.on('data', function (file) {

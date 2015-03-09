@@ -34,7 +34,7 @@ module.exports = function (context) {
 				harp.data = fs.readJsonSync(file.base + '_data.json')[harp.basename];
 			} catch (_e) {}
 
-			context = harp;
+			context = harp.data;
 		}
 
 		if (file.isStream()) {
