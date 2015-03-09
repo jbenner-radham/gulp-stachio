@@ -1,4 +1,5 @@
 'use strict';
+
 var assert = require('assert');
 var gutil = require('gulp-util');
 var handlebars = require('handlebars');
@@ -14,7 +15,6 @@ it('should ', function (cb) {
 	stream.on('data', function (file) {
 		var renderer = handlebars.compile(template);
 		assert.equal(file.relative, 'file.ext');
-		//assert.equal(file.contents.toString(), 'unicorns');
 		assert.equal(file.contents.toString(), renderer(context));
 	});
 
@@ -23,7 +23,6 @@ it('should ', function (cb) {
 	stream.write(new gutil.File({
 		base: __dirname,
 		path: __dirname + '/file.ext',
-		// contents: new Buffer('unicorns')
 		contents: new Buffer(template)
 	}));
 
