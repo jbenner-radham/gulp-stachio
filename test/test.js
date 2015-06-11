@@ -1,10 +1,9 @@
 'use strict';
 
-var assert = require('assert');
-var gutil = require('gulp-util');
+var assert     = require('assert');
+var gutil      = require('gulp-util');
 var handlebars = require('handlebars');
-var stachio = require('./');
-
+var stachio    = require('./');
 
 it('should ', function (cb) {
 	var template = '<h1>Unicorns are... {{something}}!</h1>';

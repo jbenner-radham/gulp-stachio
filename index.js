@@ -1,28 +1,39 @@
 'use strict';
 
-var $          = require('gulp-load-plugins');
-var fs         = require('fs-extra');
-var handlebars = require('handlebars');
-var path       = require('path');
-var through    = require('through2');
+var fs                 = require('fs-extra');
+var handlebars         = require('handlebars');
+var hasPrivateFilename = require('@radioactivehamster/has-private-filename');
+var gutil              = require('gulp-util');
+var path               = require('path');
+var pkg                = require('./package.json');
+var through            = require('through2');
 
 module.exports = function (context) {
 	return through.obj(function (file, enc, cb) {
 		if (file.isNull()) {
 			this.push(file);
 			return cb();
-
 		}
 
+        if (file.isStream()) {
+            this.emit('error', new gutil.PluginError(pkg.name, 'Streaming not supported'));
+            return cb();
+        }
+
+        let layout;
 		let filename = file.path.replace(file.base, '');
 
 		if (filename.charAt(0) === '/') {
 			filename = filename.slice(1);
 		}
 
+        if (hasPrivateFilename(filename)) {
+            return cb();
+        }
+
 		/**
 		 * If no context is supplied switch to the Harp metadata protocol.
-		 * @link http://harpjs.com/docs/development/metadata
+		 * @see http://harpjs.com/docs/development/metadata
 		 */
 		if (!context) {
 			let harp = {
@@ -37,18 +48,22 @@ module.exports = function (context) {
 			context = harp.data;
 		}
 
-		if (file.isStream()) {
-			this.emit('error', new $.util.PluginError('gulp-stachio', 'Streaming not supported'));
-			return cb();
-		}
+        try {
+            layout = fs.readFileSync(file.base + '_layout.hbs', { encoding: 'utf8' });
+        } catch (_e) {}
 
 		try {
-			let template = handlebars.compile(file.contents.toString())(context);
-
-			file.contents = new Buffer(template);
+			let template   = handlebars.compile(file.contents.toString())(context);
+            /**
+             * Utilize the "_layout.hbs" file if present.
+             * @see http://harpjs.com/docs/development/layout
+             */
+            let fileBuffer = (layout) ? handlebars.compile(layout)({ content: template })
+                                      : template;
+            file.contents  = new Buffer(fileBuffer);
 			this.push(file);
 		} catch (err) {
-			this.emit('error', new $.util.PluginError('gulp-stachio', err));
+			this.emit('error', new gutil.PluginError(pkg.name, err));
 		}
 
 		cb();
