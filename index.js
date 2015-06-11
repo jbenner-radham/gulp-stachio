@@ -9,11 +9,11 @@ var pkg                = require('./package.json');
 var through            = require('through2');
 
 module.exports = function (context) {
-	return through.obj(function (file, enc, cb) {
-		if (file.isNull()) {
-			this.push(file);
-			return cb();
-		}
+    return through.obj(function (file, enc, cb) {
+        if (file.isNull()) {
+            this.push(file);
+            return cb();
+        }
 
         if (file.isStream()) {
             this.emit('error', new gutil.PluginError(pkg.name, 'Streaming not supported'));
@@ -31,29 +31,29 @@ module.exports = function (context) {
             return cb();
         }
 
-		/**
-		 * If no context is supplied switch to the Harp metadata protocol.
-		 * @see http://harpjs.com/docs/development/metadata
-		 */
-		if (!context) {
-			let harp = {
-				basename: path.basename(filename, path.extname(filename)),
-				data: {}
-			};
+        /**
+         * If no context is supplied switch to the Harp metadata protocol.
+         * @see http://harpjs.com/docs/development/metadata
+         */
+        if (!context) {
+            let harp = {
+                basename: path.basename(filename, path.extname(filename)),
+                data: {}
+            };
 
-			try {
-				harp.data = fs.readJsonSync(file.base + '_data.json')[harp.basename];
-			} catch (_e) {}
+            try {
+                harp.data = fs.readJsonSync(file.base + '_data.json')[harp.basename];
+            } catch (_e) {}
 
 			context = harp.data;
-		}
+        }
 
         try {
             layout = fs.readFileSync(file.base + '_layout.hbs', { encoding: 'utf8' });
         } catch (_e) {}
 
-		try {
-			let template   = handlebars.compile(file.contents.toString())(context);
+        try {
+            let template   = handlebars.compile(file.contents.toString())(context);
             /**
              * Utilize the "_layout.hbs" file if present.
              * @see http://harpjs.com/docs/development/layout
@@ -62,10 +62,10 @@ module.exports = function (context) {
                                       : template;
             file.contents  = new Buffer(fileBuffer);
 			this.push(file);
-		} catch (err) {
-			this.emit('error', new gutil.PluginError(pkg.name, err));
-		}
+        } catch (err) {
+            this.emit('error', new gutil.PluginError(pkg.name, err));
+        }
 
-		cb();
-	});
+        cb();
+    });
 };
