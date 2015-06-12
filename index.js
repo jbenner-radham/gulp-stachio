@@ -32,6 +32,16 @@ module.exports = function (context) {
         }
 
         /**
+         * @see http://harpjs.com/docs/development/partial
+         */
+        let partials = fs.readdirSync(file.base)
+                         .filter(f => hasPrivateFilename(f))
+                         .filter(f => path.extname(f) == '.hbs')
+                         .filter(f => f != '_layout.hbs');
+
+        console.log(partials);
+
+        /**
          * If no context is supplied switch to the Harp metadata protocol.
          * @see http://harpjs.com/docs/development/metadata
          */
