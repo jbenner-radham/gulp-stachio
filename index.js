@@ -1,6 +1,5 @@
 'use strict';
 
-var eachAsync          = require('each-async');
 var fs                 = require('fs-extra');
 var handlebars         = require('handlebars');
 var hasPrivateFilename = require('@radioactivehamster/has-private-filename');
@@ -40,17 +39,7 @@ module.exports = function (context) {
                          .filter(f => path.extname(f) == '.hbs')
                          .filter(f => f != '_layout.hbs');
 
-        console.log(partials);
-
-        /*partials.forEach(p => {
-            let re = /^_(.+)\.hbs$/i;
-            let name = p.match(re);
-            if (name !== null) {
-                console.log(name[1]);
-            }
-        });*/
-
-        eachAsync(partials, (partial, index, done) => {
+        partials.forEach(partial => {
             let regex = /^_(.+)\.hbs$/i;
             let matches = partial.match(regex);
 
@@ -61,8 +50,6 @@ module.exports = function (context) {
             let name = matches[1];
             let contents = fs.readFileSync(partial, { encoding: 'utf8' });
             handlebars.registerPartial(name, contents);
-
-            console.log(name);
         });
 
         /**
