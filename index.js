@@ -10,6 +10,8 @@ var through            = require('through2');
 
 module.exports = function (context) {
     return through.obj(function (file, enc, cb) {
+        //console.log(JSON.stringify(Object.keys(file)));
+        //console.log(JSON.stringify(file.path));
         if (file.isNull()) {
             this.push(file);
             return cb();
@@ -48,7 +50,10 @@ module.exports = function (context) {
             }
 
             let name = matches[1];
-            let contents = fs.readFileSync(partial, { encoding: 'utf8' });
+            let contents = fs.readFileSync(path.join(file.base, partial), { encoding: 'utf8' });
+
+            //console.log(`Registering: ${name}...`);
+
             handlebars.registerPartial(name, contents);
         });
 
@@ -82,6 +87,7 @@ module.exports = function (context) {
             let fileBuffer = (layout) ? handlebars.compile(layout)({ content: template })
                                       : template;
             file.contents  = new Buffer(fileBuffer);
+            file.path      = gutil.replaceExtension(file.path, '.html');
 			this.push(file);
         } catch (err) {
             this.emit('error', new gutil.PluginError(pkg.name, err));
