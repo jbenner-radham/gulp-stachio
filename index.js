@@ -10,8 +10,6 @@ var through            = require('through2');
 
 module.exports = function (context) {
     return through.obj(function (file, enc, cb) {
-        //console.log(JSON.stringify(Object.keys(file)));
-        //console.log(JSON.stringify(file.path));
         if (file.isNull()) {
             this.push(file);
             return cb();
@@ -42,17 +40,15 @@ module.exports = function (context) {
                          .filter(f => f != '_layout.hbs');
 
         partials.forEach(partial => {
-            let regex = /^_(.+)\.hbs$/i;
+            let regex   = /^_(.+)\.hbs$/i;
             let matches = partial.match(regex);
 
             if (matches === null) {
                 return;
             }
 
-            let name = matches[1];
+            let name     = matches[1];
             let contents = fs.readFileSync(path.join(file.base, partial), { encoding: 'utf8' });
-
-            //console.log(`Registering: ${name}...`);
 
             handlebars.registerPartial(name, contents);
         });
@@ -80,6 +76,7 @@ module.exports = function (context) {
 
         try {
             let template   = handlebars.compile(file.contents.toString())(context);
+
             /**
              * Utilize the "_layout.hbs" file if present.
              * @see http://harpjs.com/docs/development/layout
