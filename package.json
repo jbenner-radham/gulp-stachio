@@ -26,6 +26,7 @@
     "fs-extra": "^0.16.5",
     "gulp-util": "^3.0.4",
     "handlebars": "^3.0.0",
+    "lodash": "^3.9.3",
     "through2": "^0.6.3"
   },
   "devDependencies": {

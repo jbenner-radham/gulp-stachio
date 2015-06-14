@@ -1,5 +1,6 @@
 'use strict';
 
+var _                  = require('lodash');
 var fs                 = require('fs-extra');
 var handlebars         = require('handlebars');
 var hasPrivateFilename = require('@radioactivehamster/has-private-filename');
@@ -82,7 +83,7 @@ module.exports = function (context) {
              * Utilize the "_layout.hbs" file if present.
              * @see http://harpjs.com/docs/development/layout
              */
-            let fileBuffer = (layout) ? handlebars.compile(layout)({ content: template })
+            let fileBuffer = (layout) ? handlebars.compile(layout)(_.assign(context, { content: template }))
                                       : template;
             file.contents  = new Buffer(fileBuffer);
             file.path      = gutil.replaceExtension(file.path, '.html');
