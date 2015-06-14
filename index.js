@@ -34,24 +34,24 @@ module.exports = function (context) {
         /**
          * @see http://harpjs.com/docs/development/partial
          */
-        let partials = fs.readdirSync(file.base)
-                         .filter(f => hasPrivateFilename(f))
-                         .filter(f => path.extname(f) == '.hbs')
-                         .filter(f => f != '_layout.hbs');
+        fs.readdirSync(file.base)
+            .filter(f => hasPrivateFilename(f))
+            .filter(f => path.extname(f) == '.hbs')
+            .filter(f => f != '_layout.hbs')
+            .forEach(partial => {
+                let regex   = /^_(.+)\.hbs$/i;
+                let matches = partial.match(regex);
 
-        partials.forEach(partial => {
-            let regex   = /^_(.+)\.hbs$/i;
-            let matches = partial.match(regex);
+                if (matches === null) {
+                    return;
+                }
 
-            if (matches === null) {
-                return;
-            }
+                let name     = matches[1];
+                let contents = fs.readFileSync(path.join(file.base, partial)).toString();
+                //let contents = fs.readFileSync(path.join(file.base, partial), { encoding: 'utf8' });
 
-            let name     = matches[1];
-            let contents = fs.readFileSync(path.join(file.base, partial), { encoding: 'utf8' });
-
-            handlebars.registerPartial(name, contents);
-        });
+                handlebars.registerPartial(name, contents);
+            });
 
         /**
          * If no context is supplied switch to the Harp metadata protocol.
@@ -71,7 +71,8 @@ module.exports = function (context) {
         }
 
         try {
-            layout = fs.readFileSync(file.base + '_layout.hbs', { encoding: 'utf8' });
+            layout = fs.readFileSync(file.base + '_layout.hbs').toString();
+            //layout = fs.readFileSync(file.base + '_layout.hbs', { encoding: 'utf8' });
         } catch (_e) {}
 
         try {
