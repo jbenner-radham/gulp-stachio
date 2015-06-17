@@ -55,21 +55,19 @@ module.exports = function () {
         });
 
         /**
-         * If no context is supplied switch to the Harp metadata protocol.
+         * Implement the Harp metadata protocol.
          * @see http://harpjs.com/docs/development/metadata
          */
-        if (!context) {
-            var harp = {
-                basename: path.basename(filename, path.extname(filename)),
-                data: {}
-            };
+        var harp = {
+            basename: path.basename(filename, path.extname(filename)),
+            data: {}
+        };
 
-            try {
-                harp.data = fs.readJsonSync(file.base + '_data.json')[harp.basename];
-            } catch (_e) {}
+        try {
+            harp.data = fs.readJsonSync(file.base + '_data.json')[harp.basename];
+        } catch (_e) {}
 
-            context = harp.data;
-        }
+        _.assign(context, harp.data);
 
         try {
             layout = fs.readFileSync(file.base + '_layout.hbs').toString();
