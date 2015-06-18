@@ -1,25 +1,22 @@
 {
   "name": "gulp-stachio",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Render mustachio'd templates (Handlebars.js) into HTML.",
+  "main": "index.js",
   "license": "MIT",
   "repository": "jbenner-radham/gulp-stachio",
   "author": {
     "name": "James Benner",
     "email": "james.benner@gmail.com",
-    "url": "https://github.com/jbenner-radham"
-  },
-  "engines": {
-    "node": ">=0.10.0"
+    "url": "http://jamesbenner.com"
   },
   "scripts": {
     "test": "mocha"
   },
-  "files": [
-    "index.js"
-  ],
   "keywords": [
-    "gulpplugin"
+    "gulpplugin",
+    "handlebars",
+    "template"
   ],
   "dependencies": {
     "@radioactivehamster/has-private-filename": "^0.1.0",

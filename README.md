@@ -9,24 +9,24 @@
 - [ ] Revamp Unit Tests
 
 ## Usage
-For a more advanced example following [Harp](http://harpjs.com) `_data.json` & `_layout.json` [conventions](http://harpjs.com/docs/development/rules) check `example.js`
+Follows the [Harp](http://harpjs.com) platform's `_data.json` & `_layout.hbs` [conventions](http://harpjs.com/docs/development/rules).
 
 ```js
 var gulp    = require('gulp');
 var stachio = require('gulp-stachio');
 
 gulp.task('default', function () {
-	return gulp.src('src/file.hbs')
+    return gulp.src('src/file.hbs')
         /**
          * Optionally include variables via a context object.
          * `.pipe(stachio({ hello: 'world' })`
          */
-		.pipe(stachio())
-		.pipe(gulp.dest('dist'));
+        .pipe(stachio())
+        .pipe(gulp.dest('dist'));
 });
 ```
 
 
 ## License
 
-MIT © [James Benner](https://github.com/jbenner55)
+MIT © [James Benner](https://github.com/jbenner-radham)
