@@ -10,6 +10,10 @@ var path               = require('path');
 var pkg                = require(`${__dirname}/../package.json`);
 var through            = require('through2');
 
+/**
+ * @param  {Object} context
+ * @return {(function|Object)}
+ */
 module.exports = function (context = {}) {
     return through.obj(function (file, enc, cb) {
         if (file.isNull()) {
@@ -22,14 +26,15 @@ module.exports = function (context = {}) {
             return cb();
         }
 
-        let layout;
-		let filename = file.path.replace(file.base, '');
+        let layout   = false;
+        let filename = file.path.replace(file.base, '');
 
         if (hasPrivateFilename(filename)) {
             return cb();
         }
 
         /**
+         * Implement Harp partials.
          * @see http://harpjs.com/docs/development/partial
          */
         fs.readdirSync(file.base)
@@ -80,7 +85,7 @@ module.exports = function (context = {}) {
                                       : template;
             file.contents  = new Buffer(fileBuffer);
             file.path      = gutil.replaceExtension(file.path, '.html');
-			this.push(file);
+            this.push(file);
         } catch (err) {
             this.emit('error', new gutil.PluginError(pkg.name, err));
         }
