@@ -8,7 +8,7 @@
   "author": {
     "name": "James Benner",
     "email": "james.benner@gmail.com",
-    "url": "http://jamesbenner.com"
+    "url": "http://www.jamesbenner.com"
   },
   "scripts": {
     "test": "mocha"
@@ -27,14 +27,10 @@
     "through2": "^2.0.1"
   },
   "devDependencies": {
-    "@radioactivehamster/date-time": "^0.1.3",
-    "babel": "^5.5.6",
     "gulp": "^3.9.0",
-    "gulp-babel": "^5.1.0",
-    "gulp-colorguard": "^1.1.0",
-    "gulp-htmltidy": "^0.2.2",
-    "gulp-less": "^3.0.5",
-    "js-yaml": "^3.5.3",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.9.1",
     "mocha": "^2.4.5"
   }
 }
