@@ -1,7 +1,6 @@
 [ignore]
 
 [include]
-../node_modules
 
 [libs]
 
