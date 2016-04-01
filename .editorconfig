@@ -12,9 +12,13 @@ insert_final_newline = true
 [*.hbs]
 insert_final_newline = false
 
-[package.json]
+[*.md]
+trim_trailing_whitespace = false
+
+[*.yml]
 indent_style = space
 indent_size = 2
 
-[*.md]
-trim_trailing_whitespace = false
+[package.json]
+indent_style = space
+indent_size = 2
