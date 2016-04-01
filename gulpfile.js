@@ -9,7 +9,7 @@ gulp.task('js', () => {
         .pipe(jscs())
         .pipe(jscs.reporter())
         .pipe(jshint())
-        .pipe(jshint.reporter('default'));
+        .pipe(jshint.reporter());
 });
 
 gulp.task('default', ['js']);
