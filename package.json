@@ -16,6 +16,7 @@
   "keywords": [
     "gulpplugin",
     "handlebars",
+    "harp",
     "static",
     "template"
   ],
@@ -24,7 +25,7 @@
     "fs-extra": "^0.26.7",
     "gulp-util": "^3.0.7",
     "handlebars": "^4.0.5",
-    "lodash": "^4.6.1",
+    "lodash.assign": "^4.0.6",
     "through2": "^2.0.1"
   },
   "devDependencies": {
