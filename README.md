@@ -6,7 +6,7 @@
 - [x] Layouts
 - [x] Metadata Files
 - [x] Partials
-- [ ] Revamp Unit Tests
+- [x] Revamp Tests
 
 ## Usage
 Follows the [Harp](http://harpjs.com) platform's `_data.json` & `_layout.hbs` [conventions](http://harpjs.com/docs/development/rules).
