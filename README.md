@@ -26,7 +26,7 @@ gulp.task('default', function () {
     return gulp.src('src/file.hbs')
         /**
          * Optionally include variables via a context object.
-         * `.pipe(stachio({ hello: 'world' })`
+         * `.pipe(stachio({ hello: 'world' }))`
          */
         .pipe(stachio())
         .pipe(gulp.dest('dist'));
